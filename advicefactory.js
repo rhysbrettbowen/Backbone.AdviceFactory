@@ -1,4 +1,4 @@
-// v0.1.0
+// v0.1.1
 
 // ==========================================
 // Copyright 2013 Dataminr
@@ -74,10 +74,12 @@ define([
 			for (var key in options) {
 				if (!_.contains(reserved, key)) {
 					if (_.isFunction(this.getExt(opts.base)[key]) ||
-						_.isFunction(this.getBase(opts.base)[key]))
+							_.isFunction(this.getBase(opts.base)[key])) {
+						opts.mixins.after = opts.mixins.after || {}
 						opts.mixins.after[key] = options[key];
-					else
+					} else {
 						opts.extend[key] = options[key];
+					}
 				}
 				if (_.contains(adviceKeywords, key)) {
 					opts.mixins[key] = opts.mixins[key] || {};
@@ -163,6 +165,26 @@ define([
 			return obj;
 		},
 		/**
+		 * extends objects
+		 */
+		extend: function(obj, ext) {
+			if (arguments.length > 2) {
+				for (var i = arguments.length - 1; i > 1; i--) {
+					Factory.extend(obj, arguments[i]);
+				}
+				return obj;
+			}
+			for (var key in ext) {
+				if (_.isArray(ext[key]) && _.isArray(obj[key]))
+					obj[key].push.apply(obj[key], ext[key]);
+				else if (_.isObject(ext[key]) && _.isObject(obj[key]))
+					_.extend(obj[key], ext[key]);
+				else
+					obj[key] = ext[key];
+			}
+			return obj;
+		},
+		/**
 		 * get mixin object for a BaseNode
 		 * @param {BaseNode} node
 		 * @return {Object}
@@ -191,7 +213,7 @@ define([
 		 */
 		getExt: function(node) {
 			if (!(node instanceof BaseNode)) {
-				return {}
+				return (node && node.prototype) || {};
 			}
 			return _.extend({}, this.getExt(node.base), node.ext);
 		},

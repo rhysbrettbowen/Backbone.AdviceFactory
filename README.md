@@ -62,3 +62,8 @@ define(['Backbone.AdviceFactory'], function(Factory) {
 
 This is still experimental the api may change (or more likely expand to be more flexible) and there are more features I'm working on such as converting functions so they take their "super" as the first argument.
 
+##changelog
+
+###v0.1.1
+
+add in prototype of base node as an extends
