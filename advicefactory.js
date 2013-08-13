@@ -1,4 +1,4 @@
-// v0.1.1
+// v0.2.0
 
 // ==========================================
 // Copyright 2013 Dataminr
@@ -71,10 +71,13 @@ define([
 					options.mixins) || {},
 				options: _.clone(options.options) || {}
 			});
+			var base = this.getBase(opts.base);
+			var proto = this.getBase(opts.base).prototype;
+			var ext = this.getExt(opts.base);
+			var all = _.extend({}, ext, proto);
 			for (var key in options) {
 				if (!_.contains(reserved, key)) {
-					if (_.isFunction(this.getExt(opts.base)[key]) ||
-							_.isFunction(this.getBase(opts.base)[key])) {
+					if (_.isFunction(options[key])) {
 						opts.mixins.after = opts.mixins.after || {}
 						opts.mixins.after[key] = options[key];
 					} else {
@@ -213,7 +216,7 @@ define([
 		 */
 		getExt: function(node) {
 			if (!(node instanceof BaseNode)) {
-				return (node && node.prototype) || {};
+				return {};
 			}
 			return _.extend({}, this.getExt(node.base), node.ext);
 		},

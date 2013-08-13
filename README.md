@@ -64,6 +64,10 @@ This is still experimental the api may change (or more likely expand to be more 
 
 ##changelog
 
+###v0.2.0
+
+if it's a function then use 'after' (constructor functions should go in extends)
+
 ###v0.1.1
 
 add in prototype of base node as an extends
