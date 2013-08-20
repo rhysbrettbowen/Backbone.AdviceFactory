@@ -1,4 +1,4 @@
-// v0.2.0
+// v0.3.0
 
 // ==========================================
 // Copyright 2013 Dataminr
@@ -31,6 +31,17 @@ define([
 		'super',
 		'options'
 	]);
+
+	var extendKeys = [
+		'itemView',
+		'content',
+		'header',
+		'endorsed',
+		'parse',
+		'model',
+		'template',
+		'widget'
+	];
 
 	/**
 	 * @constructor
@@ -77,7 +88,8 @@ define([
 			var all = _.extend({}, ext, proto);
 			for (var key in options) {
 				if (!_.contains(reserved, key)) {
-					if (_.isFunction(options[key])) {
+					if (_.isFunction(options[key]) &&
+								!_.contains(extendKeys, key)) {
 						opts.mixins.after = opts.mixins.after || {}
 						opts.mixins.after[key] = options[key];
 					} else {

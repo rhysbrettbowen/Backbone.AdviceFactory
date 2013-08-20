@@ -64,6 +64,10 @@ This is still experimental the api may change (or more likely expand to be more 
 
 ##changelog
 
+###v0.3.0
+
+add in some keywords to always extend
+
 ###v0.2.0
 
 if it's a function then use 'after' (constructor functions should go in extends)
