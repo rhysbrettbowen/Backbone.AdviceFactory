@@ -64,6 +64,10 @@ This is still experimental the api may change (or more likely expand to be more 
 
 ##changelog
 
+###v0.4.0
+
+when including default afters they were overriding each other - fixed
+
 ###v0.3.0
 
 add in some keywords to always extend
